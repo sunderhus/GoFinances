@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FiChevronDown, FiChevronUp } from "react-icons/fi";
+import { FiChevronDown, FiChevronUp } from 'react-icons/fi';
 import incomeIcon from '../../assets/income.svg';
 import outcomeIcon from '../../assets/outcome.svg';
 import totalIcon from '../../assets/total.svg';
@@ -36,7 +36,7 @@ interface TransactionAndBalance {
 }
 
 interface Filter {
-  columnName: 'title' | 'value' | 'category' | 'date'
+  columnName: 'title' | 'value' | 'category' | 'date';
 }
 
 const Dashboard: React.FC = () => {
@@ -56,18 +56,20 @@ const Dashboard: React.FC = () => {
     setDateOrder(false);
 
     switch (order.columnName) {
-      case "value":
+      case 'value':
         if (newColumnState) {
-          sortedTransactions = transactions.sort((a, b) => (a.value - b.value));
+          sortedTransactions = transactions.sort((a, b) => a.value - b.value);
         } else {
-          sortedTransactions = transactions.sort((a, b) => (b.value - a.value));
+          sortedTransactions = transactions.sort((a, b) => b.value - a.value);
         }
 
         setValueOrder(newColumnState);
 
         break;
-      case "title":
-        sortedTransactions = transactions.sort((a, b) => (a.title.localeCompare(b.title)));
+      case 'title':
+        sortedTransactions = transactions.sort((a, b) =>
+          a.title.localeCompare(b.title),
+        );
         if (!newColumnState) {
           sortedTransactions = sortedTransactions.reverse();
         }
@@ -75,8 +77,10 @@ const Dashboard: React.FC = () => {
         setTitleOrder(newColumnState);
 
         break;
-      case "category":
-        sortedTransactions = transactions.sort((a, b) => (a.category.title.localeCompare(b.category.title)));
+      case 'category':
+        sortedTransactions = transactions.sort((a, b) =>
+          a.category.title.localeCompare(b.category.title),
+        );
         if (!newColumnState) {
           sortedTransactions = sortedTransactions.reverse();
         }
@@ -84,8 +88,10 @@ const Dashboard: React.FC = () => {
         setCategoryOrder(newColumnState);
 
         break;
-      case "date":
-        sortedTransactions = transactions.sort((a, b) => (a.formattedDate.localeCompare(b.formattedDate)));
+      case 'date':
+        sortedTransactions = transactions.sort((a, b) =>
+          a.formattedDate.localeCompare(b.formattedDate),
+        );
         if (!newColumnState) {
           sortedTransactions = sortedTransactions.reverse();
         }
@@ -155,27 +161,66 @@ const Dashboard: React.FC = () => {
             <thead>
               <tr>
                 <th>
-                  <button onClick={() => { handleTableOrder({ columnName: 'title' }, !titleOrder) }} >
+                  <button
+                    type="button"
+                    onClick={() => {
+                      handleTableOrder({ columnName: 'title' }, !titleOrder);
+                    }}
+                  >
                     <p>Título</p>
-                    {titleOrder ? <FiChevronUp color="#FF872C" size="16" /> : <FiChevronDown color="#969cb3" size="16" />}
+                    {titleOrder ? (
+                      <FiChevronUp color="#FF872C" size="16" />
+                    ) : (
+                      <FiChevronDown color="#969cb3" size="16" />
+                    )}
                   </button>
                 </th>
                 <th>
-                  <button onClick={() => { handleTableOrder({ columnName: 'value' }, !valueOrder) }} >
+                  <button
+                    type="button"
+                    onClick={() => {
+                      handleTableOrder({ columnName: 'value' }, !valueOrder);
+                    }}
+                  >
                     <p>Preço</p>
-                    {valueOrder ? <FiChevronUp color="#FF872C" size="16" /> : <FiChevronDown color="#969cb3" size="16" />}
+                    {valueOrder ? (
+                      <FiChevronUp color="#FF872C" size="16" />
+                    ) : (
+                      <FiChevronDown color="#969cb3" size="16" />
+                    )}
                   </button>
                 </th>
                 <th>
-                  <button onClick={() => { handleTableOrder({ columnName: 'category' }, !categoryOrder) }} >
+                  <button
+                    type="button"
+                    onClick={() => {
+                      handleTableOrder(
+                        { columnName: 'category' },
+                        !categoryOrder,
+                      );
+                    }}
+                  >
                     <p>Categoria</p>
-                    {categoryOrder ? <FiChevronUp color="#FF872C" size="16" /> : <FiChevronDown color="#969cb3" size="16" />}
+                    {categoryOrder ? (
+                      <FiChevronUp color="#FF872C" size="16" />
+                    ) : (
+                      <FiChevronDown color="#969cb3" size="16" />
+                    )}
                   </button>
                 </th>
                 <th>
-                  <button onClick={() => { handleTableOrder({ columnName: 'date' }, !dateOrder) }} >
+                  <button
+                    type="button"
+                    onClick={() => {
+                      handleTableOrder({ columnName: 'date' }, !dateOrder);
+                    }}
+                  >
                     <p>Data</p>
-                    {dateOrder ? <FiChevronUp color="#FF872C" size="16" /> : <FiChevronDown color="#969cb3" size="16" />}
+                    {dateOrder ? (
+                      <FiChevronUp color="#FF872C" size="16" />
+                    ) : (
+                      <FiChevronDown color="#969cb3" size="16" />
+                    )}
                   </button>
                 </th>
               </tr>
