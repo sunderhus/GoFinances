@@ -47,7 +47,7 @@ const Dashboard: React.FC = () => {
   const [categoryOrder, setCategoryOrder] = useState(false);
   const [dateOrder, setDateOrder] = useState(true);
 
-  function handleTableOrder(order: Filter, newColumnState: boolean) {
+  function handleTableOrder(order: Filter, newColumnState: boolean): void {
     let sortedTransactions: Transaction[];
 
     setTitleOrder(false);
