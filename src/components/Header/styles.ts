@@ -22,15 +22,37 @@ export const Container = styled.div<ContainerProps>`
         text-decoration: none;
         font-size: 16px;
         transition: opacity 0.2s;
-
+        position:relative;
         & + a {
           margin-left: 32px;
         }
-
+        &.active{
+          &::after{
+            content:"";
+            position:absolute;
+            width:100%;
+            left:0px;
+            bottom: -10px;
+            border-bottom:2px solid #FF872C;
+            animation: active-route 0.4s 1 linear forwards;
+          }
+        }
         &:hover {
           opacity: 0.6;
         }
       }
+    }
+  }
+
+  @keyframes active-route {
+    from{
+      width:0%;
+    }
+    80%{
+      width:115%;
+    }
+    to{
+      width:100%
     }
   }
 `;

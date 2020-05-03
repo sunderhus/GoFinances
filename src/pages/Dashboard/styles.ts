@@ -50,6 +50,12 @@ export const Card = styled.div`
 export const TableContainer = styled.section`
   margin-top: 64px;
 
+  @keyframes filter{
+    from{opacity:0.4}
+    to{ opacity:1}
+  }
+
+
   table {
     width: 100%;
     border-spacing: 0 8px;
@@ -61,6 +67,19 @@ export const TableContainer = styled.section`
       text-align: left;
       font-size: 16px;
       line-height: 24px;
+
+      button{
+        display:flex;
+        align-items:center;
+        border:none;
+        background: none;
+        color: inherit;
+
+        svg{
+          margin-left:4px;
+          animation: filter 2.2s 1 forwards;
+        }
+      }
     }
 
     td {

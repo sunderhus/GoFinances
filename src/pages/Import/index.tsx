@@ -23,7 +23,7 @@ const Import: React.FC = () => {
   const history = useHistory();
 
   async function handleUpload(): Promise<void> {
-    // const data = new FormData();
+    //const data = new FormData();
 
     // TODO
 
@@ -35,7 +35,12 @@ const Import: React.FC = () => {
   }
 
   function submitFile(files: File[]): void {
-    // TODO
+    const formatedFiles: FileProps[] = files.map(file => ({
+      file,
+      name: file.name,
+      readableSize: file.size.toString()
+    }));
+    setUploadedFiles([...uploadedFiles, ...formatedFiles])
   }
 
   return (
