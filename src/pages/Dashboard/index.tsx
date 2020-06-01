@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { FiChevronDown, FiChevronUp } from 'react-icons/fi';
+import {
+  FiChevronDown,
+  FiChevronUp,
+  FiDollarSign,
+  FiHome,
+  FiCoffee,
+  FiActivity,
+  FiTruck,
+} from 'react-icons/fi';
+
 import incomeIcon from '../../assets/income.svg';
 import outcomeIcon from '../../assets/outcome.svg';
 import totalIcon from '../../assets/total.svg';
@@ -11,7 +20,13 @@ import Header from '../../components/Header';
 import formatValue from '../../utils/formatValue';
 import formatDate from '../../utils/formatDate';
 
-import { Container, CardContainer, Card, TableContainer } from './styles';
+import {
+  Container,
+  CardContainer,
+  Card,
+  TableContainer,
+  Category,
+} from './styles';
 
 interface Transaction {
   id: string;
@@ -23,6 +38,14 @@ interface Transaction {
   category: { title: string };
   created_at: Date;
 }
+
+const CategoryIcons = {
+  Car: <FiTruck />,
+  Food: <FiCoffee />,
+  House: <FiHome />,
+  Health: <FiActivity />,
+  Other: <FiDollarSign />,
+};
 
 interface Balance {
   income: number;
@@ -103,6 +126,21 @@ const Dashboard: React.FC = () => {
         return;
     }
     setTransactions([...sortedTransactions]);
+  }
+
+  function handleCategoryIcons(categoryName: string): JSX.Element {
+    switch (categoryName) {
+      case 'Food':
+        return CategoryIcons.Food;
+      case 'House':
+        return CategoryIcons.House;
+      case 'Car':
+        return CategoryIcons.Car;
+      case 'Health':
+        return CategoryIcons.Health;
+      default:
+        return CategoryIcons.Other;
+    }
   }
 
   useEffect(() => {
@@ -234,7 +272,13 @@ const Dashboard: React.FC = () => {
                       ? transaction.formattedValue
                       : `- ${transaction.formattedValue}`}
                   </td>
-                  <td>{transaction.category.title}</td>
+
+                  <td>
+                    <Category>
+                      {handleCategoryIcons(transaction.category.title)}
+                      <span>{transaction.category.title}</span>
+                    </Category>
+                  </td>
                   <td>{transaction.formattedDate}</td>
                 </tr>
               ))}

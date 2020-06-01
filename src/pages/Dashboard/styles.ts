@@ -50,11 +50,14 @@ export const Card = styled.div`
 export const TableContainer = styled.section`
   margin-top: 64px;
 
-  @keyframes filter{
-    from{opacity:0.4}
-    to{ opacity:1}
+  @keyframes filter {
+    from {
+      opacity: 0.4;
+    }
+    to {
+      opacity: 1;
+    }
   }
-
 
   table {
     width: 100%;
@@ -68,15 +71,15 @@ export const TableContainer = styled.section`
       font-size: 16px;
       line-height: 24px;
 
-      button{
-        display:flex;
-        align-items:center;
-        border:none;
+      button {
+        display: flex;
+        align-items: center;
+        border: none;
         background: none;
         color: inherit;
 
-        svg{
-          margin-left:4px;
+        svg {
+          margin-left: 4px;
           animation: filter 2.2s 1 forwards;
         }
       }
@@ -89,6 +92,10 @@ export const TableContainer = styled.section`
       font-size: 16px;
       font-weight: normal;
       color: #969cb3;
+
+      svg {
+        margin-right: 10px;
+      }
 
       &.title {
         color: #363f5f;
@@ -110,5 +117,14 @@ export const TableContainer = styled.section`
     td:last-child {
       border-radius: 0 8px 8px 0;
     }
+  }
+`;
+
+export const Category = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  svg {
+    margin-right: 10px;
   }
 `;
