@@ -157,10 +157,13 @@ const Dashboard: React.FC = () => {
         formattedValue: formatValue(transaction.value),
       }));
 
-      setTransactions([...transacitonsFormatted]);
+      setTransactions([
+        ...transacitonsFormatted.sort((a, b) =>
+          a.formattedDate.localeCompare(b.formattedDate),
+        ),
+      ]);
       setBalance(currentBalance);
     }
-
     loadTransactions();
   }, [transactions.length]);
 

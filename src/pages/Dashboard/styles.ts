@@ -70,6 +70,9 @@ export const TableContainer = styled.section`
       text-align: left;
       font-size: 16px;
       line-height: 24px;
+      @media (max-width: 550px) {
+        display: none;
+      }
 
       button {
         display: flex;
@@ -84,6 +87,37 @@ export const TableContainer = styled.section`
         }
       }
     }
+    @media (max-width: 550px) {
+      tr {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+
+        & + tr {
+          margin-top: 16px;
+        }
+        td:nth-child(1) {
+          border-radius: 5px 5px 0px 0px;
+        }
+        td:nth-child(2) {
+          padding-top: 0px;
+          font-size: 20px;
+        }
+        td:nth-child(3) {
+          border-radius: 0px 0px 0px 5px;
+        }
+        td:nth-child(4) {
+          border-radius: 0px 0px 5px 0px;
+        }
+        td:nth-child(1),
+        td:nth-child(2) {
+          grid-column: 1 / 2 span;
+        }
+        td:nth-child(4) {
+          text-align: end;
+        }
+      }
+    }
 
     td {
       padding: 20px 32px;
@@ -92,6 +126,9 @@ export const TableContainer = styled.section`
       font-size: 16px;
       font-weight: normal;
       color: #969cb3;
+      @media (max-width: 550px) {
+        display: grid;
+      }
 
       svg {
         margin-right: 10px;
