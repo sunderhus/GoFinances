@@ -70,66 +70,74 @@ const Dashboard: React.FC = () => {
   const [categoryOrder, setCategoryOrder] = useState(false);
   const [dateOrder, setDateOrder] = useState(true);
 
-  function handleTableOrder(order: Filter, newColumnState: boolean): void {
-    let sortedTransactions: Transaction[];
-
+  const handleResetFilterStates = useCallback((): void => {
     setTitleOrder(false);
     setValueOrder(false);
     setCategoryOrder(false);
     setDateOrder(false);
+  }, []);
 
-    switch (order.columnName) {
-      case 'value':
-        if (newColumnState) {
-          sortedTransactions = transactions.sort((a, b) => a.value - b.value);
-        } else {
-          sortedTransactions = transactions.sort((a, b) => b.value - a.value);
-        }
+  const handleTableOrder = useCallback(
+    (order: Filter, newColumnState: boolean): void => {
+      let sortedTransactions: Transaction[];
 
-        setValueOrder(newColumnState);
+      handleResetFilterStates();
 
-        break;
-      case 'title':
-        sortedTransactions = transactions.sort((a, b) =>
-          a.title.localeCompare(b.title),
-        );
-        if (!newColumnState) {
-          sortedTransactions = sortedTransactions.reverse();
-        }
+      switch (order.columnName) {
+        case 'value':
+          if (newColumnState) {
+            sortedTransactions = transactions.sort((a, b) => a.value - b.value);
+          } else {
+            sortedTransactions = transactions.sort((a, b) => b.value - a.value);
+          }
 
-        setTitleOrder(newColumnState);
+          setValueOrder(newColumnState);
 
-        break;
-      case 'category':
-        sortedTransactions = transactions.sort((a, b) =>
-          a.category.title.localeCompare(b.category.title),
-        );
-        if (!newColumnState) {
-          sortedTransactions = sortedTransactions.reverse();
-        }
+          break;
+        case 'title':
+          sortedTransactions = transactions.sort((a, b) =>
+            a.title.localeCompare(b.title),
+          );
+          if (!newColumnState) {
+            sortedTransactions = sortedTransactions.reverse();
+          }
 
-        setCategoryOrder(newColumnState);
+          setTitleOrder(newColumnState);
 
-        break;
-      case 'date':
-        sortedTransactions = transactions.sort((a, b) => {
-          const dateA = new Date(a.created_at);
-          const dateB = new Date(b.created_at);
-          // eslint-disable-next-line no-nested-ternary
-          return dateA < dateB ? 1 : dateB < dateA ? -1 : 0;
-        });
-        if (!newColumnState) {
-          sortedTransactions = sortedTransactions.reverse();
-        }
+          break;
+        case 'category':
+          sortedTransactions = transactions.sort((a, b) =>
+            a.category.title.localeCompare(b.category.title),
+          );
+          if (!newColumnState) {
+            sortedTransactions = sortedTransactions.reverse();
+          }
 
-        setDateOrder(newColumnState);
+          setCategoryOrder(newColumnState);
 
-        break;
-      default:
-        return;
-    }
-    setTransactions([...sortedTransactions]);
-  }
+          break;
+        case 'date':
+          sortedTransactions = transactions.sort((a, b) => {
+            const dateA = new Date(a.created_at);
+            const dateB = new Date(b.created_at);
+            // eslint-disable-next-line no-nested-ternary
+            return dateA < dateB ? 1 : dateB < dateA ? -1 : 0;
+          });
+          if (!newColumnState) {
+            sortedTransactions = sortedTransactions.reverse();
+          }
+
+          setDateOrder(newColumnState);
+
+          break;
+        default:
+          return;
+      }
+
+      setTransactions([...sortedTransactions]);
+    },
+    [transactions, handleResetFilterStates],
+  );
 
   const handleCategoryIcons = useCallback(
     (categoryName: string): JSX.Element => {
@@ -167,6 +175,7 @@ const Dashboard: React.FC = () => {
 
       setBalance(currentBalance);
     }
+
     loadTransactions();
   }, [transactions.length]);
 
