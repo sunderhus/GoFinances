@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   FiChevronDown,
   FiChevronUp,
@@ -112,9 +112,12 @@ const Dashboard: React.FC = () => {
 
         break;
       case 'date':
-        sortedTransactions = transactions.sort((a, b) =>
-          a.formattedDate.localeCompare(b.formattedDate),
-        );
+        sortedTransactions = transactions.sort((a, b) => {
+          const dateA = new Date(a.created_at);
+          const dateB = new Date(b.created_at);
+          // eslint-disable-next-line no-nested-ternary
+          return dateA < dateB ? 1 : dateB < dateA ? -1 : 0;
+        });
         if (!newColumnState) {
           sortedTransactions = sortedTransactions.reverse();
         }
@@ -128,20 +131,23 @@ const Dashboard: React.FC = () => {
     setTransactions([...sortedTransactions]);
   }
 
-  function handleCategoryIcons(categoryName: string): JSX.Element {
-    switch (categoryName) {
-      case 'Food':
-        return CategoryIcons.Food;
-      case 'House':
-        return CategoryIcons.House;
-      case 'Car':
-        return CategoryIcons.Car;
-      case 'Health':
-        return CategoryIcons.Health;
-      default:
-        return CategoryIcons.Other;
-    }
-  }
+  const handleCategoryIcons = useCallback(
+    (categoryName: string): JSX.Element => {
+      switch (categoryName) {
+        case 'Food':
+          return CategoryIcons.Food;
+        case 'House':
+          return CategoryIcons.House;
+        case 'Car':
+          return CategoryIcons.Car;
+        case 'Health':
+          return CategoryIcons.Health;
+        default:
+          return CategoryIcons.Other;
+      }
+    },
+    [],
+  );
 
   useEffect(() => {
     async function loadTransactions(): Promise<void> {
@@ -157,11 +163,8 @@ const Dashboard: React.FC = () => {
         formattedValue: formatValue(transaction.value),
       }));
 
-      setTransactions([
-        ...transacitonsFormatted.sort((a, b) =>
-          a.formattedDate.localeCompare(b.formattedDate),
-        ),
-      ]);
+      setTransactions([...transacitonsFormatted.reverse()]);
+
       setBalance(currentBalance);
     }
     loadTransactions();
