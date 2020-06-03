@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import filesize from 'filesize';
@@ -20,30 +20,43 @@ interface FileProps {
 
 const Import: React.FC = () => {
   const [uploadedFiles, setUploadedFiles] = useState<FileProps[]>([]);
+  const [hasFiles, setHasFiles] = useState(false);
   const history = useHistory();
 
-  async function handleUpload(): Promise<void> {
-    const data = new FormData();
-    uploadedFiles.forEach(uploadedFile => {
-      data.append('file', uploadedFile.file);
-    });
+  const handleUpload = useCallback(() => {
+    async function create(): Promise<void> {
+      if (!uploadedFiles.length) return;
 
-    try {
-      await api.post<File>('/transactions/import', data);
+      uploadedFiles.forEach(async uploadedFile => {
+        const data = new FormData();
+        data.append('file', uploadedFile.file, uploadedFile.name);
+        try {
+          await api.post<File>('/transactions/import', data);
+        } catch (err) {
+          console.error(err.response.error);
+        }
+      });
+
       history.goBack();
-    } catch (err) {
-      console.log(err.response.error);
     }
-  }
 
-  function submitFile(files: File[]): void {
-    const formatedFiles: FileProps[] = files.map(file => ({
-      file,
-      name: file.name,
-      readableSize: filesize(file.size, { exponent: -1, fullform: true }),
-    }));
-    setUploadedFiles([...uploadedFiles, ...formatedFiles]);
-  }
+    create();
+  }, [history, uploadedFiles]);
+
+  const submitFile = useCallback(
+    (files: File[]): void => {
+      const formatedFiles: FileProps[] = files.map(file => ({
+        file,
+        name: file.name,
+        readableSize: filesize(file.size, { exponent: -1, fullform: true }),
+      }));
+
+      setUploadedFiles([...uploadedFiles, ...formatedFiles]);
+
+      setHasFiles(true);
+    },
+    [uploadedFiles],
+  );
 
   return (
     <>
@@ -59,7 +72,7 @@ const Import: React.FC = () => {
               <img src={alert} alt="Alert" />
               Permitido apenas arquivos CSV
             </p>
-            <button onClick={handleUpload} type="button">
+            <button disabled={!hasFiles} onClick={handleUpload} type="button">
               Enviar
             </button>
           </Footer>

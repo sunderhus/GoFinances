@@ -65,6 +65,9 @@ interface Filter {
 const Dashboard: React.FC = () => {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [balance, setBalance] = useState<Balance>({} as Balance);
+  const [page, setPage] = useState(1);
+  const [total, setTotal] = useState(0);
+  const [loading, setLoading] = useState(false);
   const [valueOrder, setValueOrder] = useState(false);
   const [titleOrder, setTitleOrder] = useState(false);
   const [categoryOrder, setCategoryOrder] = useState(false);
@@ -157,27 +160,39 @@ const Dashboard: React.FC = () => {
     [],
   );
 
+  const loadTransactions = useCallback(async (): Promise<void> => {
+    if (loading) return;
+
+    if (total > 0 && transactions.length >= total) return;
+
+    setLoading(true);
+
+    const [transactionsAndBalance] = await Promise.all([
+      api.get<TransactionAndBalance>('/transactions', { params: { page } }),
+    ]);
+
+    const currentTransactions = transactionsAndBalance.data.transactions;
+    const currentBalance = transactionsAndBalance.data.balance;
+    const currentTotal = Number(
+      transactionsAndBalance.headers['x-total-count'],
+    );
+
+    const transacitonsFormatted = currentTransactions.map(transaction => ({
+      ...transaction,
+      formattedDate: formatDate(transaction.created_at),
+      formattedValue: formatValue(transaction.value),
+    }));
+
+    setTransactions([...transactions, ...transacitonsFormatted.reverse()]);
+    setBalance(currentBalance);
+    setTotal(currentTotal);
+    setPage(page + 1);
+    setLoading(false);
+  }, [loading, page, total, transactions]);
+
   useEffect(() => {
-    async function loadTransactions(): Promise<void> {
-      const [transactionsAndBalance] = await Promise.all([
-        api.get<TransactionAndBalance>('/transactions'),
-      ]);
-      const currentTransactions = transactionsAndBalance.data.transactions;
-      const currentBalance = transactionsAndBalance.data.balance;
-
-      const transacitonsFormatted = currentTransactions.map(transaction => ({
-        ...transaction,
-        formattedDate: formatDate(transaction.created_at),
-        formattedValue: formatValue(transaction.value),
-      }));
-
-      setTransactions([...transacitonsFormatted.reverse()]);
-
-      setBalance(currentBalance);
-    }
-
     loadTransactions();
-  }, [transactions.length]);
+  }, []);
 
   return (
     <>
@@ -300,6 +315,14 @@ const Dashboard: React.FC = () => {
             </tbody>
           </table>
         </TableContainer>
+
+        <button
+          disabled={transactions.length >= total}
+          onClick={loadTransactions}
+          type="button"
+        >
+          Carregar mais
+        </button>
       </Container>
     </>
   );

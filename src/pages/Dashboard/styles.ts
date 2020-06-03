@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { shade } from 'polished';
 
 interface CardProps {
   total?: boolean;
@@ -9,6 +10,21 @@ export const Container = styled.div`
   max-width: 1120px;
   margin: 0 auto;
   padding: 40px 20px;
+
+  & > button {
+    background: #ff872c;
+    color: #fff;
+    border-radius: 5px;
+    padding: 15px 80px;
+    border: 0;
+    transition: background-color 0.2s;
+    &:hover {
+      background: ${shade(0.2, '#ff872c')};
+    }
+    &:disabled {
+      background: #888;
+    }
+  }
 `;
 
 export const Title = styled.h1`

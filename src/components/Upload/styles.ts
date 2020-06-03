@@ -43,9 +43,8 @@ export const UploadMessage = styled.p`
   font-size: 16px;
   line-height: 24px;
   padding: 48px 0;
-
-  color: ${({ type }: UploadProps) => messageColors[type || 'default']};
-
   justify-content: center;
   align-items: center;
+
+  color: ${({ type }: UploadProps) => messageColors[type || 'default']};
 `;
