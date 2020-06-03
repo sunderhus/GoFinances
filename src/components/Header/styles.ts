@@ -9,31 +9,41 @@ export const Container = styled.div<ContainerProps>`
   padding: 30px 0;
 
   header {
-    width: 1120px;
+    max-width: 1120px;
     margin: 0 auto;
     padding: ${({ size }) => (size === 'small' ? '0 20px ' : '0 20px 150px')};
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
 
+    @media (max-width: 420px) {
+      justify-content: center;
+
+      img {
+        margin-bottom: 20px;
+        margin-right: 20px;
+        justify-self: center;
+      }
+    }
     nav {
       a {
         color: #fff;
         text-decoration: none;
         font-size: 16px;
         transition: opacity 0.2s;
-        position:relative;
+        position: relative;
         & + a {
           margin-left: 32px;
         }
-        &.active{
-          &::after{
-            content:"";
-            position:absolute;
-            width:100%;
-            left:0px;
+        &.active {
+          &::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            left: 0px;
             bottom: -10px;
-            border-bottom:2px solid #FF872C;
+            border-bottom: 2px solid #ff872c;
             animation: active-route 0.4s 1 linear forwards;
           }
         }
@@ -45,14 +55,14 @@ export const Container = styled.div<ContainerProps>`
   }
 
   @keyframes active-route {
-    from{
-      width:0%;
+    from {
+      width: 0%;
     }
-    80%{
-      width:115%;
+    80% {
+      width: 115%;
     }
-    to{
-      width:100%
+    to {
+      width: 100%;
     }
   }
 `;
