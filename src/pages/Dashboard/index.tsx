@@ -26,6 +26,7 @@ import {
   Card,
   TableContainer,
   Category,
+  Pagination,
 } from './styles';
 
 interface Transaction {
@@ -39,14 +40,6 @@ interface Transaction {
   created_at: Date;
 }
 
-const CategoryIcons = {
-  Car: <FiTruck />,
-  Food: <FiCoffee />,
-  House: <FiHome />,
-  Health: <FiActivity />,
-  Other: <FiDollarSign />,
-};
-
 interface Balance {
   income: number;
   outcome: number;
@@ -57,10 +50,17 @@ interface TransactionAndBalance {
   transactions: Transaction[];
   balance: Balance;
 }
-
 interface Filter {
   columnName: 'title' | 'value' | 'category' | 'date';
 }
+
+const CategoryIcons = {
+  Car: <FiTruck />,
+  Food: <FiCoffee />,
+  House: <FiHome />,
+  Health: <FiActivity />,
+  Other: <FiDollarSign />,
+};
 
 const Dashboard: React.FC = () => {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
@@ -315,14 +315,15 @@ const Dashboard: React.FC = () => {
             </tbody>
           </table>
         </TableContainer>
-
-        <button
-          disabled={transactions.length >= total}
-          onClick={loadTransactions}
-          type="button"
-        >
-          Carregar mais
-        </button>
+        <Pagination>
+          <button
+            disabled={transactions.length >= total}
+            onClick={loadTransactions}
+            type="button"
+          >
+            {loading ? 'Carregando' : 'Carregar mais'}
+          </button>
+        </Pagination>
       </Container>
     </>
   );

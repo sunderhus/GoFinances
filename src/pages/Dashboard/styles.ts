@@ -10,21 +10,6 @@ export const Container = styled.div`
   max-width: 1120px;
   margin: 0 auto;
   padding: 40px 20px;
-
-  & > button {
-    background: #ff872c;
-    color: #fff;
-    border-radius: 5px;
-    padding: 15px 80px;
-    border: 0;
-    transition: background-color 0.2s;
-    &:hover {
-      background: ${shade(0.2, '#ff872c')};
-    }
-    &:disabled {
-      background: #888;
-    }
-  }
 `;
 
 export const Title = styled.h1`
@@ -37,6 +22,11 @@ export const CardContainer = styled.section`
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 32px;
   margin-top: -150px;
+  overflow-x: scroll;
+  -webkit-scrollbar: hidden;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export const Card = styled.div`
@@ -179,5 +169,28 @@ export const Category = styled.div`
   justify-content: flex-start;
   svg {
     margin-right: 10px;
+  }
+`;
+
+export const Pagination = styled.div`
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40px;
+
+  button {
+    background: #ff872c;
+    color: #fff;
+    border-radius: 5px;
+    padding: 15px 80px;
+    border: 0;
+    transition: background-color 0.2s;
+    &:hover {
+      background: ${shade(0.2, '#ff872c')};
+    }
+    &:disabled {
+      background: #888;
+    }
   }
 `;
