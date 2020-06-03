@@ -166,28 +166,31 @@ const Dashboard: React.FC = () => {
     if (total > 0 && transactions.length >= total) return;
 
     setLoading(true);
+    try {
+      const [transactionsAndBalance] = await Promise.all([
+        api.get<TransactionAndBalance>('/transactions', { params: { page } }),
+      ]);
 
-    const [transactionsAndBalance] = await Promise.all([
-      api.get<TransactionAndBalance>('/transactions', { params: { page } }),
-    ]);
+      const currentTransactions = transactionsAndBalance.data.transactions;
+      const currentBalance = transactionsAndBalance.data.balance;
+      const currentTotal = Number(
+        transactionsAndBalance.headers['x-total-count'],
+      );
 
-    const currentTransactions = transactionsAndBalance.data.transactions;
-    const currentBalance = transactionsAndBalance.data.balance;
-    const currentTotal = Number(
-      transactionsAndBalance.headers['x-total-count'],
-    );
+      const transacitonsFormatted = currentTransactions.map(transaction => ({
+        ...transaction,
+        formattedDate: formatDate(transaction.created_at),
+        formattedValue: formatValue(transaction.value),
+      }));
 
-    const transacitonsFormatted = currentTransactions.map(transaction => ({
-      ...transaction,
-      formattedDate: formatDate(transaction.created_at),
-      formattedValue: formatValue(transaction.value),
-    }));
-
-    setTransactions([...transactions, ...transacitonsFormatted.reverse()]);
-    setBalance(currentBalance);
-    setTotal(currentTotal);
-    setPage(page + 1);
-    setLoading(false);
+      setTransactions([...transactions, ...transacitonsFormatted.reverse()]);
+      setBalance(currentBalance);
+      setTotal(currentTotal);
+      setPage(page + 1);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+    }
   }, [loading, page, total, transactions]);
 
   useEffect(() => {
