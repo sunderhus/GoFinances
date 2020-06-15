@@ -1,4 +1,26 @@
-# GoFinance - 💰 personal finance manager
+
+
+<h1 align="center">GoFinance</h1>
+<p align="center">
+<a href="https://gofinance.netlify.app/">
+  <img  alt="GoFinances" title="GoFinances" src="./public/gofinancesicon.svg" width="200px" />
+</a>
+</p>
+<p align="center">
+  <img alt="Last commit on GitHub" src="https://img.shields.io/github/last-commit/sunderhus/GoFinances?color=12a454">
+  <img alt="Made by Rocketseat" src="https://img.shields.io/badge/made%20by-Rocketseat-%20?color=12a454">
+  <img alt="Project top programing language" src="https://img.shields.io/github/languages/top/sunderhus/GoFinances?color=12a454">
+  <img alt="Repository size" src="https://img.shields.io/github/repo-size/sunderhus/GoFinances?color=12a454">
+  <img alt="GitHub license" src="https://img.shields.io/github/license/sunderhus/GoFinances?color=12a454">
+</p>
+
+
+
+<p align="center">
+  GoFinances is a simple financial control project developed with ReactJS during Rocketseat's GoStack 11 Bootcamp.
+</p>
+
+---
 
 ### Status
 
