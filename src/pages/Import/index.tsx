@@ -21,7 +21,6 @@ import {
 } from './styles';
 
 import alert from '../../assets/alert.svg';
-import formatDate from '../../utils/formatDate';
 
 interface FileProps {
   file: File;
