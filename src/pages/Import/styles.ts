@@ -70,6 +70,18 @@ export const FormContainer = styled.div`
   @media (max-width: 768px) {
     display: grid;
   }
+
+  animation: formCadastro 0.45s linear forwards;
+  @keyframes formCadastro {
+    from {
+      opacity: 0.3;
+      transform: translateX(-80px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0px);
+    }
+  }
   justify-items: flex-start;
 
   grid-gap: 24px;
@@ -88,6 +100,10 @@ export const FormContainer = styled.div`
     max-width: 330px;
     width: 100%;
     justify-self: center;
+
+    @media (max-width: 330px) {
+      max-width: unset;
+    }
 
     button {
       color: #fff;
