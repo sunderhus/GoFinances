@@ -195,6 +195,8 @@ const Dashboard: React.FC = () => {
 
   useEffect(() => {
     loadTransactions();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
