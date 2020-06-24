@@ -49,14 +49,14 @@ export const Footer = styled.section`
   }
 
   button {
-    background: #ff872c;
+    background: #29da88;
     color: #fff;
     border-radius: 5px;
     padding: 15px 80px;
     border: 0;
     transition: background-color 0.2s;
     &:hover {
-      background: ${shade(0.2, '#ff872c')};
+      background: ${shade(0.2, '#29da88')};
     }
     &:disabled {
       background: #888;
@@ -107,7 +107,7 @@ export const FormContainer = styled.div`
 
     button {
       color: #fff;
-      background-color: #ff872c;
+      background-color: #29da88;
       text-align: center;
     }
     input,
@@ -147,7 +147,7 @@ export const Income = styled.div<TypeProps>`
   ${props =>
     props.isSelected &&
     css`
-      border-color: #12a454;
+      border-color: #29da88;
     `}
 
   img {

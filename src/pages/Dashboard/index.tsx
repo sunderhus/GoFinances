@@ -221,7 +221,7 @@ const Dashboard: React.FC = () => {
               {formatValue(balance.outcome)}
             </h1>
           </Card>
-          <Card total>
+          <Card total={balance.total > 0}>
             <header>
               <p>Total</p>
               <img src={totalIcon} alt="Total" />
