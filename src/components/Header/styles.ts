@@ -5,7 +5,7 @@ interface ContainerProps {
 }
 
 export const Container = styled.div<ContainerProps>`
-  background: #5636d3;
+  background: #131b4c;
   padding: 30px 0;
 
   header {
@@ -43,7 +43,7 @@ export const Container = styled.div<ContainerProps>`
             width: 100%;
             left: 0px;
             bottom: -10px;
-            border-bottom: 2px solid #ff872c;
+            border-bottom: 2px solid #29da88;
             animation: active-route 0.4s 1 linear forwards;
           }
         }

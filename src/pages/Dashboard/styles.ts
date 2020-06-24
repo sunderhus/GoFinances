@@ -30,7 +30,8 @@ export const CardContainer = styled.section`
 `;
 
 export const Card = styled.div`
-  background: ${({ total }: CardProps): string => (total ? '#FF872C' : '#fff')};
+  background: ${({ total }: CardProps): string =>
+    total ? '#29da88 ' : '#fff'};
   padding: 22px 32px;
   border-radius: 5px;
   color: ${({ total }: CardProps): string => (total ? '#fff' : '#363F5F')};
@@ -145,7 +146,7 @@ export const TableContainer = styled.section`
       }
 
       &.income {
-        color: #12a454;
+        color: #29da88;
       }
 
       &.outcome {
@@ -180,14 +181,14 @@ export const Pagination = styled.div`
   margin-top: 40px;
 
   button {
-    background: #ff872c;
+    background: #29da88;
     color: #fff;
     border-radius: 5px;
     padding: 15px 80px;
     border: 0;
     transition: background-color 0.2s;
     &:hover {
-      background: ${shade(0.2, '#ff872c')};
+      background: ${shade(0.2, '#29da88')};
     }
     &:disabled {
       background: #888;

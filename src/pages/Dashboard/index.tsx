@@ -239,11 +239,16 @@ const Dashboard: React.FC = () => {
                       handleTableOrder({ columnName: 'title' }, !titleOrder);
                     }}
                   >
-                    <p>Título</p>
                     {titleOrder ? (
-                      <FiChevronUp color="#FF872C" size="16" />
+                      <>
+                        <p style={{ color: '#131b4c' }}>Título</p>
+                        <FiChevronUp color="#29da88" size="16" />
+                      </>
                     ) : (
-                      <FiChevronDown color="#969cb3" size="16" />
+                      <>
+                        <p>Título</p>
+                        <FiChevronDown color="#969cb3" size="16" />
+                      </>
                     )}
                   </button>
                 </th>
@@ -254,11 +259,16 @@ const Dashboard: React.FC = () => {
                       handleTableOrder({ columnName: 'value' }, !valueOrder);
                     }}
                   >
-                    <p>Preço</p>
                     {valueOrder ? (
-                      <FiChevronUp color="#FF872C" size="16" />
+                      <>
+                        <p style={{ color: '#131b4c' }}>Preço</p>
+                        <FiChevronUp color="#29da88" size="16" />
+                      </>
                     ) : (
-                      <FiChevronDown color="#969cb3" size="16" />
+                      <>
+                        <p>Preço</p>
+                        <FiChevronDown color="#969cb3" size="16" />
+                      </>
                     )}
                   </button>
                 </th>
@@ -272,11 +282,16 @@ const Dashboard: React.FC = () => {
                       );
                     }}
                   >
-                    <p>Categoria</p>
                     {categoryOrder ? (
-                      <FiChevronUp color="#FF872C" size="16" />
+                      <>
+                        <p style={{ color: '#131b4c' }}>Categoria</p>
+                        <FiChevronUp color="#29da88" size="16" />
+                      </>
                     ) : (
-                      <FiChevronDown color="#969cb3" size="16" />
+                      <>
+                        <p>Categoria</p>
+                        <FiChevronDown color="#969cb3" size="16" />
+                      </>
                     )}
                   </button>
                 </th>
@@ -287,11 +302,16 @@ const Dashboard: React.FC = () => {
                       handleTableOrder({ columnName: 'date' }, !dateOrder);
                     }}
                   >
-                    <p>Data</p>
                     {dateOrder ? (
-                      <FiChevronUp color="#FF872C" size="16" />
+                      <>
+                        <p style={{ color: '#131b4c' }}>Data</p>
+                        <FiChevronUp color="#29da88" size="16" />
+                      </>
                     ) : (
-                      <FiChevronDown color="#969cb3" size="16" />
+                      <>
+                        <p>Data</p>
+                        <FiChevronDown color="#969cb3" size="16" />
+                      </>
                     )}
                   </button>
                 </th>
